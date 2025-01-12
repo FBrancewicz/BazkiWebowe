@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="org.example.MongoProduct" %>
+<%@ page import="org.example.obiektowa.OBMongoProduct" %>
 <html>
 <head>
     <title>Lista produktów z obiektowej bazy danych</title>
@@ -58,10 +58,10 @@
 <h1>Lista produktów z obiektowej bazy danych</h1>
 <div class="product-container">
     <%
-        List<MongoProduct> products = (List<MongoProduct>) request.getAttribute("ormProducts");
+        List<OBMongoProduct> products = (List<OBMongoProduct>) request.getAttribute("ormProducts");
 
         if (products != null && !products.isEmpty()) {
-            for (MongoProduct product : products) {
+            for (OBMongoProduct product : products) {
     %>
     <div class="product-card">
         <h2><%= product.getName() %></h2>

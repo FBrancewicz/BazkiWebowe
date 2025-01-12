@@ -1,20 +1,17 @@
-package org.example;
+package org.example.obiektowa;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
-import lombok.Getter;
-import lombok.Setter;
 import org.bson.Document;
 import org.bson.types.ObjectId;
-import org.example.entity.Product;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class OBProductDAO {
-    public List<MongoProduct> getAllProducts() {
-        List<MongoProduct> products = new ArrayList<>();
+    public List<OBMongoProduct> getAllProducts() {
+        List<OBMongoProduct> products = new ArrayList<>();
         try {
             MongoCollection<Document> collection = OBMongoDBConnection.getDatabase().getCollection("products");
             MongoCursor<Document> cursor = collection.find().iterator();
@@ -33,7 +30,7 @@ public class OBProductDAO {
                 String saleId = doc.get("sale", Document.class).getString("$id");
 
                 // Tworzenie obiektu MongoProduct
-                MongoProduct product = new MongoProduct(
+                OBMongoProduct product = new OBMongoProduct(
                         doc.getObjectId("_id"), // Używaj ObjectId dla samego ID dokumentu
                         name,
                         details,

@@ -1,4 +1,7 @@
-package org.example;
+package org.example.relacyjna;
+
+import org.example.Product;
+import org.example.ProductDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

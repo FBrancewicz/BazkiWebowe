@@ -1,11 +1,12 @@
-package org.example;
+package org.example.obiektowa;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.example.entity.Product;
+
+import org.example.MongoProduct;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,11 +24,11 @@ public class ServletObiektowaBazaDanychProduct extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Fetch products from MongoDB
-        List<MongoProduct> products = productDAO.getAllProducts();
+        List<OBMongoProduct> products = productDAO.getAllProducts();
 
         // Debugowanie listy produktów
         System.out.println("DEBUG: Liczba produktów odczytanych z MongoDB: " + products.size());
-        for (MongoProduct product : products) {
+        for (OBMongoProduct product : products) {
             System.out.println("DEBUG: Produkt - " + product.getName() + ", Cena: " + product.getPrice());
         }
 

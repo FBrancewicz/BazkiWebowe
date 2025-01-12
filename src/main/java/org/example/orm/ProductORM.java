@@ -3,6 +3,9 @@ package org.example.orm;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.example.entity.Category;
+import org.example.entity.Manufacturer;
+import org.example.entity.Sale;
 
 @Getter
 @Setter
@@ -34,3 +37,4 @@ public class ProductORM {
     private ClientORM client;
 
 }
+
