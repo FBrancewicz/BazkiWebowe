@@ -52,6 +52,11 @@
             color: #388e3c;
             font-size: 16px;
         }
+
+        .product-card .highlight {
+            font-weight: bold;
+            color: #1565c0;
+        }
     </style>
 </head>
 <body>
@@ -67,6 +72,24 @@
         <h2><%= product.getName() %></h2>
         <p><strong>Opis:</strong> <%= product.getDetails() %></p>
         <p class="price"><strong>Cena:</strong> <%= product.getPrice() %> PLN</p>
+        <p><strong>Kategoria:</strong>
+            <span class="highlight"><%= product.getCategory() != null ? product.getCategory().getName() : "Brak" %></span>
+        </p>
+        <p><strong>Opis kategorii:</strong>
+            <%= product.getCategory() != null ? product.getCategory().getDescription() : "Brak" %>
+        </p>
+        <p><strong>Producent:</strong>
+            <%= product.getManufacturer() != null ? product.getManufacturer().getName() : "Brak" %>
+        </p>
+        <p><strong>Promocja:</strong>
+            <%= product.getSaleORM() != null ? product.getSaleORM().getName() : "Brak" %>
+        </p>
+        <p><strong>Data rozpoczęcia promocji:</strong>
+            <%= product.getSaleORM() != null ? product.getSaleORM().getStartDate() : "Brak" %>
+        </p>
+        <p><strong>Data zakończenia promocji:</strong>
+            <%= product.getSaleORM() != null ? product.getSaleORM().getEndDate() : "Brak" %>
+        </p>
     </div>
     <%
         }
