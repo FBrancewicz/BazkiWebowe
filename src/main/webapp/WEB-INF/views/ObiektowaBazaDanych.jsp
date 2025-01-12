@@ -33,7 +33,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 15px;
             width: 300px;
-            text-align: left;
+            text-align: center;
         }
 
         .product-card h2 {
@@ -52,6 +52,11 @@
             color: #28a745;
             font-size: 16px;
         }
+
+        .product-card .highlight {
+            font-weight: bold;
+            color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -66,7 +71,13 @@
     <div class="product-card">
         <h2><%= product.getName() %></h2>
         <p><strong>Opis:</strong> <%= product.getDetails() %></p>
-        <p class="price"><strong>Cena:</strong> <%= product.getPrice() %> PLN</p>
+        <p><strong>Cena:</strong> <span class="price"><%= product.getPrice() %> PLN</span></p>
+        <p><strong>Kategoria:</strong> <span class="highlight"><%= product.getCategory() != null ? product.getCategory().getName() : "Brak" %></span></p>
+        <p><strong>Opis kategorii:</strong> <%= product.getCategory() != null ? product.getCategory().getDescription() : "Brak" %></p>
+        <p><strong>Producent:</strong> <%= product.getManufacturer() != null ? product.getManufacturer().getName() : "Brak" %></p>
+        <p><strong>Promocja:</strong> <%= product.getSale() != null ? product.getSale().getName() : "Brak" %></p>
+        <p><strong>Data rozpoczęcia promocji:</strong> <%= product.getSale() != null ? product.getSale().getStartDate() : "Brak" %></p>
+        <p><strong>Data zakończenia promocji:</strong> <%= product.getSale() != null ? product.getSale().getEndDate() : "Brak" %></p>
     </div>
     <%
         }

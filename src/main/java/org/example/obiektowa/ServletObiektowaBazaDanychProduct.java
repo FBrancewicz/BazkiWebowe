@@ -21,23 +21,30 @@ public class ServletObiektowaBazaDanychProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Fetch products from MongoDB
-        List<OBMongoProduct> products = productDAO.getAllProducts();
+        try {
+            // Fetch products from MongoDB
+            List<OBMongoProduct> products = productDAO.getAllProducts();
 
-        // Debugowanie listy produktów
-        System.out.println("DEBUG: Liczba produktów odczytanych z MongoDB: " + products.size());
-        for (OBMongoProduct product : products) {
-            System.out.println("DEBUG: Produkt - " + product.getName() + ", Cena: " + product.getPrice());
+            // Debugowanie listy produktów
+            if (products.isEmpty()) {
+                System.out.println("DEBUG: Brak produktów w kolekcji MongoDB.");
+            } else {
+                System.out.println("DEBUG: Liczba produktów odczytanych z MongoDB: " + products.size());
+                for (OBMongoProduct product : products) {
+                    System.out.println("DEBUG: Produkt - " + product.getName() + ", Cena: " + product.getPrice());
+                }
+            }
+
+            // Set attributes for JSP
+            request.setAttribute("ormProducts", products);
+
+        } catch (Exception e) {
+            System.out.println("ERROR: Wystąpił błąd podczas pobierania produktów z MongoDB.");
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "Nie można załadować produktów. Skontaktuj się z administratorem.");
         }
-
-        // Set attributes for JSP
-        request.setAttribute("ormProducts", products);
 
         // Forward request to JSP
         request.getRequestDispatcher("/WEB-INF/views/ObiektowaBazaDanych.jsp").forward(request, response);
     }
-
-
-
-
 }

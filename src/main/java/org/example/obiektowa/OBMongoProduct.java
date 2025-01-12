@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
 
+
 @Getter
 @Setter
 public class OBMongoProduct {
@@ -13,20 +14,16 @@ public class OBMongoProduct {
     private double price;
 
     // Kategorie
-    private String categoryName;
-    private String categoryDescription;
+    private OBCategory category;
 
     // Producent
-    private String manufacturerName;
+    private OBManufacturer manufacturer;
 
     // Promocja
-    private String saleName;
-    private String saleStartDate;
-    private String saleEndDate;
+    private OBSale sale;
 
     // Konstruktor
-    public OBMongoProduct(ObjectId id, String name, String details, double price,
-                        ObjectId categoryId, ObjectId manufacturerId, ObjectId saleId) {
+    public OBMongoProduct(ObjectId id, String name, String details, double price) {
         this.id = id;
         this.name = name;
         this.details = details;

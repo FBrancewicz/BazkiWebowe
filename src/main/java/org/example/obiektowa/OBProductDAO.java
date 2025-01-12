@@ -10,35 +10,67 @@ import java.util.List;
 
 
 public class OBProductDAO {
+
     public List<OBMongoProduct> getAllProducts() {
         List<OBMongoProduct> products = new ArrayList<>();
-        try {
-            MongoCollection<Document> collection = OBMongoDBConnection.getDatabase().getCollection("products");
-            MongoCursor<Document> cursor = collection.find().iterator();
+        MongoCollection<Document> collection = OBMongoDBConnection.getDatabase().getCollection("products");
 
+        try (MongoCursor<Document> cursor = collection.find().iterator()) {
             while (cursor.hasNext()) {
                 Document doc = cursor.next();
 
-                // Odczyt głównych pól
+                // Pobieranie głównych pól
+                ObjectId id = doc.getObjectId("_id");
                 String name = doc.getString("name");
                 String details = doc.getString("details");
                 double price = doc.getDouble("price");
 
-                // Obsługa referencji jako String (jeśli są zapisane jako ciągi znaków)
-                String categoryId = doc.get("category", Document.class).getString("$id");
-                String manufacturerId = doc.get("manufacturer", Document.class).getString("$id");
-                String saleId = doc.get("sale", Document.class).getString("$id");
+                OBMongoProduct product = new OBMongoProduct(id, name, details, price);
 
-                // Tworzenie obiektu MongoProduct
-                OBMongoProduct product = new OBMongoProduct(
-                        doc.getObjectId("_id"), // Używaj ObjectId dla samego ID dokumentu
-                        name,
-                        details,
-                        price,
-                        categoryId != null ? new ObjectId(categoryId) : null,
-                        manufacturerId != null ? new ObjectId(manufacturerId) : null,
-                        saleId != null ? new ObjectId(saleId) : null
-                );
+                // Pobieranie kategorii
+                Document categoryDoc = doc.get("category", Document.class);
+                if (categoryDoc != null) {
+                    OBCategory category = new OBCategory();
+                    Object categoryId = categoryDoc.get("_id");
+                    if (categoryId instanceof ObjectId) {
+                        category.setId((ObjectId) categoryId);
+                    } else if (categoryId instanceof String) {
+                        category.setId(new ObjectId((String) categoryId));
+                    }
+                    category.setName(categoryDoc.getString("name"));
+                    category.setDescription(categoryDoc.getString("description"));
+                    product.setCategory(category);
+                }
+
+                // Pobieranie producenta
+                Document manufacturerDoc = doc.get("manufacturer", Document.class);
+                if (manufacturerDoc != null) {
+                    OBManufacturer manufacturer = new OBManufacturer();
+                    Object manufacturerId = manufacturerDoc.get("_id");
+                    if (manufacturerId instanceof ObjectId) {
+                        manufacturer.setId((ObjectId) manufacturerId);
+                    } else if (manufacturerId instanceof String) {
+                        manufacturer.setId(new ObjectId((String) manufacturerId));
+                    }
+                    manufacturer.setName(manufacturerDoc.getString("name"));
+                    product.setManufacturer(manufacturer);
+                }
+
+                // Pobieranie promocji
+                Document saleDoc = doc.get("sale", Document.class);
+                if (saleDoc != null) {
+                    OBSale sale = new OBSale();
+                    Object saleId = saleDoc.get("_id");
+                    if (saleId instanceof ObjectId) {
+                        sale.setId((ObjectId) saleId);
+                    } else if (saleId instanceof String) {
+                        sale.setId(new ObjectId((String) saleId));
+                    }
+                    sale.setName(saleDoc.getString("name"));
+                    sale.setStartDate(saleDoc.getString("startDate"));
+                    sale.setEndDate(saleDoc.getString("endDate"));
+                    product.setSale(sale);
+                }
 
                 products.add(product);
             }
@@ -49,8 +81,7 @@ public class OBProductDAO {
     }
 
 
-
-    public Document getRelatedDocument(String collectionName, ObjectId id) {
+    private Document getRelatedDocument(String collectionName, ObjectId id) {
         MongoCollection<Document> collection = OBMongoDBConnection.getDatabase().getCollection(collectionName);
         return collection.find(new Document("_id", id)).first();
     }
