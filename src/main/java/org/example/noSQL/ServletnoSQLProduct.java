@@ -1,8 +1,5 @@
 package org.example.noSQL;
 
-import org.example.MongoProduct;
-import org.example.MongoProductDAO;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

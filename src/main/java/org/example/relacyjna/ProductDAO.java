@@ -1,6 +1,4 @@
-package org.example;
-
-import org.example.relacyjna.DatabaseConnection;
+package org.example.relacyjna;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

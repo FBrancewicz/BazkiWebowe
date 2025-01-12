@@ -1,4 +1,4 @@
-package org.example;
+package org.example.relacyjna;
 
 import lombok.Getter;
 import lombok.Setter;

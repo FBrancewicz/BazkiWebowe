@@ -3,7 +3,6 @@ package org.example.orm;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.example.entity.Category;
 import org.example.entity.Manufacturer;
 import org.example.entity.Sale;
 
@@ -35,6 +34,7 @@ public class ProductORM {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private ClientORM client;
+
 
 }
 

@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import org.example.entity.Product;
 
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
@@ -30,16 +29,17 @@ public class ServletORMProduct extends HttpServlet {
 
         try {
             // Pobieranie danych produktów
-            List<Product> products = em.createQuery(
-                    "SELECT p FROM Product p " +
+            List<ProductORM> products = em.createQuery(
+                    "SELECT p FROM ProductORM p " +
                             "LEFT JOIN FETCH p.category " +
                             "LEFT JOIN FETCH p.manufacturer " +
-                            "LEFT JOIN FETCH p.sale", Product.class
+                            "LEFT JOIN FETCH p.saleORM"
+
             ).getResultList();
 
             // Debugowanie w konsoli
             System.out.println("DEBUG: Lista produktów:");
-            for (Product product : products) {
+            for (ProductORM product : products) {
                 System.out.println("Produkt: ID=" + product.getId() + ", Name=" + product.getName() + ", Cena=" + product.getPrice());
                 if (product.getCategory() != null) {
                     System.out.println("Kategoria: " + product.getCategory().getName());
@@ -47,8 +47,8 @@ public class ServletORMProduct extends HttpServlet {
                 if (product.getManufacturer() != null) {
                     System.out.println("Producent: " + product.getManufacturer().getName());
                 }
-                if (product.getSale() != null) {
-                    System.out.println("Promocja: " + product.getSale().getName());
+                if (product.getSaleORM() != null) {
+                    System.out.println("Promocja: " + product.getSaleORM().getName());
                 }
             }
 

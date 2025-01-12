@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="org.example.Product" %>
+<%@ page import="org.example.relacyjna.Product" %>
 <html>
 <head>
     <title>Lista produktów z relacyjnej bazy danych</title>

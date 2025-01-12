@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="org.example.MongoProduct" %>
+<%@ page import="org.example.noSQL.MongoProduct" %>
 <html>
 <head>
     <title>Lista produktów z bazy noSQL</title>

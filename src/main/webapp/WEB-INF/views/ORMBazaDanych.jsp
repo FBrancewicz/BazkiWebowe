@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="org.example.entity.Product" %>
+<%@ page import="org.example.orm.ProductORM" %>
 <html>
 <head>
     <title>Lista produktów z obiektowo-relacyjnej bazy danych</title>
@@ -58,10 +58,10 @@
 <h1>Lista produktów z obiektowo-relacyjnej bazy danych</h1>
 <div class="product-container">
     <%
-        List<Product> products = (List<Product>) request.getAttribute("productsOBDatabase");
+        List<ProductORM> products = (List<ProductORM>) request.getAttribute("productsOBDatabase");
 
         if (products != null && !products.isEmpty()) {
-            for (Product product : products) {
+            for (ProductORM product : products) {
     %>
     <div class="product-card">
         <h2><%= product.getName() %></h2>
