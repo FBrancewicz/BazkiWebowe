@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="org.example.noSQL.MongoProduct" %>
+<%@ page import="org.example.noSQL.noSQLProduct" %>
 <html>
 <head>
     <title>Lista produktów z bazy noSQL</title>
@@ -52,21 +52,32 @@
             color: #28a745;
             font-size: 16px;
         }
+
+        .product-card .highlight {
+            font-weight: bold;
+            color: #0056b3;
+        }
     </style>
 </head>
 <body>
 <h1>Lista produktów z bazy noSQL</h1>
 <div class="product-container">
     <%
-        List<MongoProduct> products = (List<MongoProduct>) request.getAttribute("mongoProducts");
+        List<noSQLProduct> products = (List<noSQLProduct>) request.getAttribute("mongoProducts");
 
         if (products != null && !products.isEmpty()) {
-            for (MongoProduct product : products) {
+            for (noSQLProduct product : products) {
     %>
     <div class="product-card">
         <h2><%= product.getName() %></h2>
         <p><strong>Opis:</strong> <%= product.getDetails() %></p>
         <p><strong>Cena:</strong> <span class="price"><%= product.getPrice() %> PLN</span></p>
+        <p><strong>Kategoria:</strong> <span class="highlight"><%= product.getCategory() != null ? product.getCategory().getName() : "Brak" %></span></p>
+        <p><strong>Opis kategorii:</strong> <%= product.getCategory() != null ? product.getCategory().getDescription() : "Brak" %></p>
+        <p><strong>Producent:</strong> <%= product.getManufacturer() != null ? product.getManufacturer().getName() : "Brak" %></p>
+        <p><strong>Promocja:</strong> <%= product.getSale() != null ? product.getSale().getName() : "Brak" %></p>
+        <p><strong>Data rozpoczęcia promocji:</strong> <%= product.getSale() != null ? product.getSale().getStartDate() : "Brak" %></p>
+        <p><strong>Data zakończenia promocji:</strong> <%= product.getSale() != null ? product.getSale().getEndDate() : "Brak" %></p>
     </div>
     <%
         }
