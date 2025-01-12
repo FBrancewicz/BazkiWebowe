@@ -1,4 +1,4 @@
-package org.example;
+package org.example.obiektowa;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;

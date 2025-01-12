@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="org.example.entity.Product" %>
+<%@ page import="org.example.orm.ProductORM" %>
 <html>
 <head>
     <title>Lista produktów z obiektowo-relacyjnej bazy danych</title>
@@ -52,21 +52,44 @@
             color: #388e3c;
             font-size: 16px;
         }
+
+        .product-card .highlight {
+            font-weight: bold;
+            color: #1565c0;
+        }
     </style>
 </head>
 <body>
 <h1>Lista produktów z obiektowo-relacyjnej bazy danych</h1>
 <div class="product-container">
     <%
-        List<Product> products = (List<Product>) request.getAttribute("productsOBDatabase");
+        List<ProductORM> products = (List<ProductORM>) request.getAttribute("productsOBDatabase");
 
         if (products != null && !products.isEmpty()) {
-            for (Product product : products) {
+            for (ProductORM product : products) {
     %>
     <div class="product-card">
         <h2><%= product.getName() %></h2>
         <p><strong>Opis:</strong> <%= product.getDetails() %></p>
         <p class="price"><strong>Cena:</strong> <%= product.getPrice() %> PLN</p>
+        <p><strong>Kategoria:</strong>
+            <span class="highlight"><%= product.getCategory() != null ? product.getCategory().getName() : "Brak" %></span>
+        </p>
+        <p><strong>Opis kategorii:</strong>
+            <%= product.getCategory() != null ? product.getCategory().getDescription() : "Brak" %>
+        </p>
+        <p><strong>Producent:</strong>
+            <%= product.getManufacturer() != null ? product.getManufacturer().getName() : "Brak" %>
+        </p>
+        <p><strong>Promocja:</strong>
+            <%= product.getSaleORM() != null ? product.getSaleORM().getName() : "Brak" %>
+        </p>
+        <p><strong>Data rozpoczęcia promocji:</strong>
+            <%= product.getSaleORM() != null ? product.getSaleORM().getStartDate() : "Brak" %>
+        </p>
+        <p><strong>Data zakończenia promocji:</strong>
+            <%= product.getSaleORM() != null ? product.getSaleORM().getEndDate() : "Brak" %>
+        </p>
     </div>
     <%
         }

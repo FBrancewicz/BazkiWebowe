@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+
 @Getter
 @Setter
 @Entity(name = "ProductORM")
@@ -33,4 +34,6 @@ public class ProductORM {
     @JoinColumn(name = "client_id")
     private ClientORM client;
 
+
 }
+

@@ -1,4 +1,4 @@
-package org.example;
+package org.example.relacyjna;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

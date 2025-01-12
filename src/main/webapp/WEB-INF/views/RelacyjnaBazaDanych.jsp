@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="org.example.Product" %>
+<%@ page import="org.example.relacyjna.Product" %>
 <html>
 <head>
     <title>Lista produktów z relacyjnej bazy danych</title>
@@ -67,7 +67,16 @@
         <h2><%= product.getName() %></h2>
         <p><strong>Opis:</strong> <%= product.getDetails() %></p>
         <p class="price"><strong>Cena:</strong> <%= product.getPrice() %> PLN</p>
+        <p><strong>Kategoria:</strong> <%= product.getCategoryName() != null ? product.getCategoryName() : "Brak" %></p>
+        <p><strong>Producent:</strong> <%= product.getManufacturerName() != null ? product.getManufacturerName() : "Brak" %></p>
+
+        <% if (product.getSaleName() != null) { %>
+        <p><strong>Promocja:</strong> <%= product.getSaleName() %></p>
+        <p><strong>Data rozpoczęcia promocji:</strong> <%= product.getSaleStartDate() != null ? product.getSaleStartDate() : "Brak" %></p>
+        <p><strong>Data zakończenia promocji:</strong> <%= product.getSaleEndDate() != null ? product.getSaleEndDate() : "Brak" %></p>
+        <% } %>
     </div>
+
     <%
         }
     } else {

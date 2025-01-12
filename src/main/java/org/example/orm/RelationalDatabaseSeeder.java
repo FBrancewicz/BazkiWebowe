@@ -120,7 +120,7 @@ public class RelationalDatabaseSeeder {
             em.persist(product3);
 
             em.getTransaction().commit();
-            System.out.println("Produkty zostały dodane do ObjectRelationalDB!");
+            System.out.println("Produkty zostały dodane do webappdatabase");
         } catch (Exception e) {
             em.getTransaction().rollback();
             e.printStackTrace();

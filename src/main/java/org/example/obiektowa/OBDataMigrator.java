@@ -1,8 +1,9 @@
-package org.example;
+package org.example.obiektowa;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+import org.example.relacyjna.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

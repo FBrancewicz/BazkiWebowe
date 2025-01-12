@@ -1,4 +1,4 @@
-package org.example;
+package org.example.noSQL;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,22 +9,22 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/noSQLBazaDanych")
-public class ServletnoSQLProduct extends HttpServlet {
-    private MongoProductDAO mongoProductDAO = new MongoProductDAO();
+public class ServletnoSQL extends HttpServlet {
+    private final noSQLProductDAO noSQLProductDAO = new noSQLProductDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("DEBUG: Obsługa żądania /mongoProducts.");
+        System.out.println("DEBUG: Obsługa żądania /noSQLBazaDanych");
 
-        // Pobierz listę produktów z MongoDB
-        List<MongoProduct> products = mongoProductDAO.getAllProducts();
+        // Pobieranie produktów
+        List<noSQLProduct> products = noSQLProductDAO.getAllProducts();
         System.out.println("DEBUG: Pobieranie produktów zakończone. Liczba produktów: " + products.size());
 
-        // Przekaż listę produktów do widoku JSP
+        // Przekazanie danych do widoku JSP
         request.setAttribute("mongoProducts", products);
 
-        // Przekieruj do widoku
+        // Przekierowanie do widoku
         request.getRequestDispatcher("/WEB-INF/views/noSQLBazaDanych.jsp").forward(request, response);
     }
 }
