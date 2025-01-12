@@ -16,7 +16,7 @@ public class RelationalDatabaseSeeder {
         try {
             em.getTransaction().begin();
 
-            // Dodanie klienta
+
             ClientORM client = new ClientORM();
             client.setUsername("exampleUser");
             client.setEmail("example@domain.com");
@@ -24,7 +24,7 @@ public class RelationalDatabaseSeeder {
             client.setRole("USER");
             em.persist(client);
 
-            // Dodanie kategorii, producenta i promocji
+
             CategoryORM category = new CategoryORM();
             category.setName("Smartphones");
             category.setDescription("Mobile devices");

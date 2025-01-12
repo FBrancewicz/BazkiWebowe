@@ -15,19 +15,19 @@ public class ServletRelacyjnaBazaDanychProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Pobranie listy produktów z DAO
+
         List<Product> products = productDAO.getAllProducts();
 
-        // Debugowanie listy produktów
+
         System.out.println("DEBUG: Lista produktów zawiera " + products.size() + " elementów.");
         for (Product product : products) {
             System.out.println("DEBUG: Produkt - " + product.getName() + ", Cena: " + product.getPrice());
         }
 
-        // Przekazanie listy do widoku JSP
+
         request.setAttribute("products", products);
 
-        // Przekierowanie do JSP
+
         request.getRequestDispatcher("/WEB-INF/views/RelacyjnaBazaDanych.jsp").forward(request, response);
     }
 }

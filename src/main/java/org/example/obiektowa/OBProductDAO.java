@@ -19,7 +19,7 @@ public class OBProductDAO {
             while (cursor.hasNext()) {
                 Document doc = cursor.next();
 
-                // Pobieranie głównych pól
+
                 ObjectId id = doc.getObjectId("_id");
                 String name = doc.getString("name");
                 String details = doc.getString("details");
@@ -27,7 +27,7 @@ public class OBProductDAO {
 
                 OBMongoProduct product = new OBMongoProduct(id, name, details, price);
 
-                // Pobieranie kategorii
+
                 Document categoryDoc = doc.get("category", Document.class);
                 if (categoryDoc != null) {
                     OBCategory category = new OBCategory();
@@ -42,7 +42,7 @@ public class OBProductDAO {
                     product.setCategory(category);
                 }
 
-                // Pobieranie producenta
+
                 Document manufacturerDoc = doc.get("manufacturer", Document.class);
                 if (manufacturerDoc != null) {
                     OBManufacturer manufacturer = new OBManufacturer();
@@ -56,7 +56,7 @@ public class OBProductDAO {
                     product.setManufacturer(manufacturer);
                 }
 
-                // Pobieranie promocji
+
                 Document saleDoc = doc.get("sale", Document.class);
                 if (saleDoc != null) {
                     OBSale sale = new OBSale();

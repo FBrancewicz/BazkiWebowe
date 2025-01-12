@@ -7,10 +7,10 @@ import org.bson.types.ObjectId;
 @Getter
 @Setter
 public class noSQLSale {
-    private ObjectId id; // ID promocji
-    private String name; // Nazwa promocji
-    private String startDate; // Data rozpoczęcia promocji (jako String)
-    private String endDate; // Data zakończenia promocji (jako String)
+    private ObjectId id;
+    private String name;
+    private String startDate;
+    private String endDate;
 
     public noSQLSale(ObjectId id, String name, String startDate, String endDate) {
         this.id = id;

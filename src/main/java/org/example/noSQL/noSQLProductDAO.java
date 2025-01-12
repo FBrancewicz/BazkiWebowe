@@ -35,7 +35,7 @@ public class noSQLProductDAO {
                 Document doc = cursor.next();
                 System.out.println("DEBUG: Wczytano dokument produktu: " + doc);
 
-                // Odczyt pól podstawowych
+
                 ObjectId id = doc.getObjectId("_id");
                 String name = doc.getString("name");
                 String details = doc.getString("details");
@@ -48,7 +48,7 @@ public class noSQLProductDAO {
 
                 noSQLProduct product = new noSQLProduct(id, name, details, price);
 
-                // Obsługa DBRef dla kategorii
+
                 if (doc.get("category") instanceof DBRef categoryRef) {
                     System.out.println("DEBUG: Znaleziono referencję kategorii: " + categoryRef);
                     Document categoryDoc = getReferencedDocument(categoryRef);
@@ -64,7 +64,7 @@ public class noSQLProductDAO {
                     }
                 }
 
-                // Obsługa DBRef dla producenta
+
                 if (doc.get("manufacturer") instanceof DBRef manufacturerRef) {
                     System.out.println("DEBUG: Znaleziono referencję producenta: " + manufacturerRef);
                     Document manufacturerDoc = getReferencedDocument(manufacturerRef);
@@ -79,7 +79,7 @@ public class noSQLProductDAO {
                     }
                 }
 
-                // Obsługa DBRef dla promocji
+
                 if (doc.get("sale") instanceof DBRef saleRef) {
                     System.out.println("DEBUG: Znaleziono referencję promocji: " + saleRef);
                     Document saleDoc = getReferencedDocument(saleRef);

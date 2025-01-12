@@ -12,13 +12,13 @@ import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/ORMBazaDanych") // Ścieżka dla tego servletu
+@WebServlet("/ORMBazaDanych")
 public class ServletORMProduct extends HttpServlet {
     private EntityManagerFactory emf;
 
     @Override
     public void init() throws ServletException {
-        // Powiązanie z właściwą jednostką persystencji
+
         emf = Persistence.createEntityManagerFactory("webappdatabase-unit");
     }
 
@@ -28,7 +28,7 @@ public class ServletORMProduct extends HttpServlet {
         EntityManager em = emf.createEntityManager();
 
         try {
-            // Pobieranie danych produktów
+
             List<ProductORM> products = em.createQuery(
                     "SELECT p FROM ProductORM p " +
                             "LEFT JOIN FETCH p.category " +
@@ -37,7 +37,7 @@ public class ServletORMProduct extends HttpServlet {
 
             ).getResultList();
 
-            // Debugowanie w konsoli
+
             System.out.println("DEBUG: Lista produktów:");
             for (ProductORM product : products) {
                 System.out.println("Produkt: ID=" + product.getId() + ", Name=" + product.getName() + ", Cena=" + product.getPrice());
@@ -52,7 +52,7 @@ public class ServletORMProduct extends HttpServlet {
                 }
             }
 
-            // Przekazanie danych do JSP
+
             request.setAttribute("productsOBDatabase", products);
             request.getRequestDispatcher("/WEB-INF/views/ORMBazaDanych.jsp").forward(request, response);
         } finally {

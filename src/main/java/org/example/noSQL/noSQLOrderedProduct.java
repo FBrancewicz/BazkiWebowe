@@ -7,9 +7,9 @@ import org.bson.types.ObjectId;
 @Getter
 @Setter
 public class noSQLOrderedProduct {
-    private ObjectId productId; // ID zamówionego produktu
-    private int quantity; // Ilość zamówionych produktów
-    private String orderDate; // Data zamówienia (jako String)
+    private ObjectId productId;
+    private int quantity;
+    private String orderDate;
 
     public noSQLOrderedProduct(ObjectId productId, int quantity, String orderDate) {
         this.productId = productId;

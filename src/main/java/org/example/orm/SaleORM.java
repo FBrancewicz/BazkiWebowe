@@ -26,5 +26,5 @@ public class SaleORM {
     @OneToMany(mappedBy = "saleORM", cascade = CascadeType.ALL)
     private List<ProductORM> productORMS;
 
-    // Getters and Setters
+
 }

@@ -11,8 +11,8 @@ import lombok.Setter;
 @Table(name = "Category")
 public class CategoryORM {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Wspiera AUTO_INCREMENT
-    private Integer id; // Zmienione z String na Integer
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     private String name;
     private String description;

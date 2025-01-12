@@ -11,15 +11,15 @@ import java.util.List;
 @Setter
 public class noSQLClient {
 
-    private ObjectId id; // ID klienta
-    private String username; // Nazwa użytkownika
-    private String email; // Email klienta
-    private String password; // Hasło klienta
-    private String role; // Rola klienta (np. USER, ADMIN)
+    private ObjectId id;
+    private String username;
+    private String email;
+    private String password;
+    private String role;
 
-    // Opinie klienta
-    private List<noSQLOpinion> opinions; // Lista opinii (np. dla produktów)
-    private List<noSQLOrderedProduct> orderedProducts; // Lista zamówionych produktów
+
+    private List<noSQLOpinion> opinions;
+    private List<noSQLOrderedProduct> orderedProducts;
 
     public noSQLClient(ObjectId id, String username, String email, String password, String role) {
         this.id = id;

@@ -7,9 +7,9 @@ import org.bson.types.ObjectId;
 @Getter
 @Setter
 public class noSQLOpinion {
-    private ObjectId productId; // ID produktu, którego dotyczy opinia
-    private int rating; // Ocena produktu
-    private String content; // Treść opinii
+    private ObjectId productId;
+    private int rating;
+    private String content;
 
     public noSQLOpinion(ObjectId productId, int rating, String content) {
         this.productId = productId;

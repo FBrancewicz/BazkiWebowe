@@ -11,12 +11,6 @@ import org.bson.codecs.configuration.CodecRegistries;
 import com.mongodb.MongoClientSettings;
 import org.bson.codecs.configuration.CodecRegistry;
 
-import com.mongodb.MongoClientSettings;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoDatabase;
-import org.bson.codecs.configuration.CodecRegistries;
-import org.bson.codecs.configuration.CodecRegistry;
-import org.bson.codecs.pojo.PojoCodecProvider;
 
 public class noSQLDBConnection {
     private static final String CONNECTION_STRING = "mongodb://localhost:27017";

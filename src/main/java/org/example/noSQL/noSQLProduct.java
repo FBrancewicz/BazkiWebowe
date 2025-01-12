@@ -25,10 +25,6 @@ public class noSQLProduct {
             this.price = price;
         }
 
-        public noSQLProduct(){
-
-        }
-
 
     }
 

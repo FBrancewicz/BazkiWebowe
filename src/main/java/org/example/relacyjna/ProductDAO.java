@@ -26,7 +26,7 @@ public class ProductDAO {
             return mapResultSetToProducts(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
-            return new ArrayList<>(); // Return an empty list in case of exception
+            return new ArrayList<>();
         }
     }
 

@@ -13,16 +13,16 @@ public class OBMongoProduct {
     private String details;
     private double price;
 
-    // Kategorie
+
     private OBCategory category;
 
-    // Producent
+
     private OBManufacturer manufacturer;
 
-    // Promocja
+
     private OBSale sale;
 
-    // Konstruktor
+
     public OBMongoProduct(ObjectId id, String name, String details, double price) {
         this.id = id;
         this.name = name;

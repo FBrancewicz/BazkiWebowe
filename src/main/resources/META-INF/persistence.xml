@@ -4,7 +4,6 @@
              https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
 
-    <!-- Jednostka dla bazy danych WebAppDatabase -->
     <persistence-unit name="webappdatabase-unit">
         <class>org.example.orm.ClientORM</class>
         <class>org.example.orm.ProductORM</class>

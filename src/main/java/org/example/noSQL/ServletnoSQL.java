@@ -17,14 +17,13 @@ public class ServletnoSQL extends HttpServlet {
             throws ServletException, IOException {
         System.out.println("DEBUG: Obsługa żądania /noSQLBazaDanych");
 
-        // Pobieranie produktów
+
         List<noSQLProduct> products = noSQLProductDAO.getAllProducts();
         System.out.println("DEBUG: Pobieranie produktów zakończone. Liczba produktów: " + products.size());
 
-        // Przekazanie danych do widoku JSP
         request.setAttribute("mongoProducts", products);
 
-        // Przekierowanie do widoku
+
         request.getRequestDispatcher("/WEB-INF/views/noSQLBazaDanych.jsp").forward(request, response);
     }
 }

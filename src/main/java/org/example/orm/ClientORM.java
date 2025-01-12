@@ -27,5 +27,5 @@ public class ClientORM {
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<OpinionORM> opinionORMS;
 
-    // Getters and Setters
+
 }

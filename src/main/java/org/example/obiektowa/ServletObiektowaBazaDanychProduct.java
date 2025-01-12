@@ -22,10 +22,10 @@ public class ServletObiektowaBazaDanychProduct extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            // Fetch products from MongoDB
+
             List<OBMongoProduct> products = productDAO.getAllProducts();
 
-            // Debugowanie listy produktów
+
             if (products.isEmpty()) {
                 System.out.println("DEBUG: Brak produktów w kolekcji MongoDB.");
             } else {
@@ -35,7 +35,7 @@ public class ServletObiektowaBazaDanychProduct extends HttpServlet {
                 }
             }
 
-            // Set attributes for JSP
+
             request.setAttribute("ormProducts", products);
 
         } catch (Exception e) {
@@ -44,7 +44,7 @@ public class ServletObiektowaBazaDanychProduct extends HttpServlet {
             request.setAttribute("errorMessage", "Nie można załadować produktów. Skontaktuj się z administratorem.");
         }
 
-        // Forward request to JSP
+
         request.getRequestDispatcher("/WEB-INF/views/ObiektowaBazaDanych.jsp").forward(request, response);
     }
 }
