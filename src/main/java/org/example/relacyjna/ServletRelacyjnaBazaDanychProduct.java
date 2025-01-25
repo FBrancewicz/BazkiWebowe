@@ -113,7 +113,7 @@ public class ServletRelacyjnaBazaDanychProduct extends HttpServlet {
 
         long endTime = System.currentTimeMillis();
         double durationInSeconds = (endTime - startTime) / 1000.0;
-        request.setAttribute("executionTimeMessage", "Operation took: " + durationInSeconds + " seconds");
+        request.setAttribute("executionTimeMessage", "Operacja trwala: " + durationInSeconds + " seconds");
 
         doGet(request, response);
     }

@@ -113,7 +113,6 @@
         <button type="submit" style="background-color: #007BFF; color: white;">Update kategorie produktow</button>
     </form>
     <div class="button-container">
-        <!-- Buttons for adding categories -->
         <form action="RelacyjnaBazaDanych" method="POST">
             <input type="hidden" name="action" value="addSingleCategory">
             <button type="submit" style="background-color: #28a745; color: white;">Dodaj 1 kategorie</button>
@@ -144,7 +143,7 @@
         </form>
         <form action="RelacyjnaBazaDanych" method="POST">
             <input type="hidden" name="action" value="updateCategoryDescription">
-            <button type="submit" style="background-color: #FFA500; color: white;">Update category description</button>
+            <button type="submit" style="background-color: #FFA500; color: white;">Update kategorii</button>
         </form>
     </div>
 
