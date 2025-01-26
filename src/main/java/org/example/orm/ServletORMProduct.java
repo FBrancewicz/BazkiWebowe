@@ -108,6 +108,7 @@ public class ServletORMProduct extends HttpServlet {
                 case "updateCategoryNames":
                     RelationalDatabaseSeeder.updateCategoryNames(em);
                     break;
+
                 default:
                     throw new IllegalArgumentException("Unsupported action: " + action);
             }
