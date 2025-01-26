@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class RelationalDatabaseSeeder {
 
@@ -58,69 +59,29 @@ public class RelationalDatabaseSeeder {
         try {
             em.getTransaction().begin();
 
-            // Pobierz powiązane dane
-            CategoryORM category = em.createQuery("SELECT c FROM CategoryORM c WHERE c.name = :name", CategoryORM.class)
-                    .setParameter("name", "Smartphones")
-                    .getSingleResult();
-            ManufacturerORM manufacturer = em.createQuery("SELECT m FROM ManufacturerORM m WHERE m.name = :name", ManufacturerORM.class)
-                    .setParameter("name", "Samsung")
-                    .getSingleResult();
-            SaleORM sale = em.createQuery("SELECT s FROM SaleORM s WHERE s.name = :name", SaleORM.class)
-                    .setParameter("name", "Winter Sale")
-                    .getSingleResult();
-            ClientORM client = em.createQuery("SELECT c FROM ClientORM c WHERE c.username = :username", ClientORM.class)
-                    .setParameter("username", "exampleUser")
-                    .getSingleResult();
 
-            // Sprawdzenie, czy istnieje produkt do aktualizacji
-            ProductORM existingProduct = null;
-            try {
-                existingProduct = em.createQuery("SELECT p FROM ProductORM p WHERE p.name = :name", ProductORM.class)
-                        .setParameter("name", "Samsung Galaxy S2")
-                        .getSingleResult();
-            } catch (jakarta.persistence.NoResultException e) {
-                System.out.println("Brak istniejącego produktu. Dodawanie nowego produktu...");
+            CategoryORM category = em.find(CategoryORM.class, 1);
+            ManufacturerORM manufacturer = em.find(ManufacturerORM.class, 1);
+            SaleORM sale = em.find(SaleORM.class, 1);
+            ClientORM client = em.find(ClientORM.class, 1);
+
+            if (category == null || manufacturer == null || sale == null || client == null) {
+                throw new IllegalStateException("Powiązane encje muszą istnieć w bazie danych przed dodaniem produktu.");
             }
 
-            if (existingProduct != null) {
-                existingProduct.setName("BazaObiektowoRelacyjnaProdukt1");
-                em.persist(existingProduct);
-            } else {
-                // Dodanie nowego produktu
-                ProductORM product1 = new ProductORM();
-                product1.setName("BazaObiektowoRelacyjnaProdukt1");
-                product1.setDetails("High-end Android smartphone");
-                product1.setPrice(899.99);
-                product1.setCategory(category);
-                product1.setManufacturer(manufacturer);
-                product1.setSaleORM(sale);
-                product1.setClient(client);
-                em.persist(product1);
-            }
+            ProductORM product = new ProductORM();
+            product.setName("New Product");
+            product.setDetails("Details about the new product");
+            product.setPrice(299.99);
+            product.setCategory(category);
+            product.setManufacturer(manufacturer);
+            product.setSaleORM(sale);
+            product.setClient(client);
 
-            // Dodanie nowych produktów
-            ProductORM product2 = new ProductORM();
-            product2.setName("BazaObiektowoRelacyjnaProdukt2");
-            product2.setDetails("Mid-range Android smartphone");
-            product2.setPrice(499.99);
-            product2.setCategory(category);
-            product2.setManufacturer(manufacturer);
-            product2.setSaleORM(sale);
-            product2.setClient(client);
-            em.persist(product2);
-
-            ProductORM product3 = new ProductORM();
-            product3.setName("BazaObiektowoRelacyjnaProdukt3");
-            product3.setDetails("Flagship foldable Android smartphone");
-            product3.setPrice(1799.99);
-            product3.setCategory(category);
-            product3.setManufacturer(manufacturer);
-            product3.setSaleORM(sale);
-            product3.setClient(client);
-            em.persist(product3);
+            em.persist(product);
 
             em.getTransaction().commit();
-            System.out.println("Produkty zostały dodane do webappdatabase");
+            System.out.println("Produkt został dodany pomyślnie.");
         } catch (Exception e) {
             em.getTransaction().rollback();
             e.printStackTrace();
@@ -132,10 +93,179 @@ public class RelationalDatabaseSeeder {
 
 
     public static void main(String[] args) {
-        // Dodanie powiązanych danych
+
         addRelatedEntities();
 
-        // Dodanie przykładowych produktów
+
         addProduct();
     }
+
+
+    public static void addProducts(int count) {
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+
+
+            CategoryORM category = em.find(CategoryORM.class, 1);
+            ManufacturerORM manufacturer = em.find(ManufacturerORM.class, 1);
+            SaleORM sale = em.find(SaleORM.class, 1);
+            ClientORM client = em.find(ClientORM.class, 1);
+
+            if (category == null || manufacturer == null || sale == null || client == null) {
+                throw new IllegalStateException("Powiązane encje muszą istnieć w bazie danych przed dodaniem produktów.");
+            }
+
+
+            for (int i = 1; i <= count; i++) {
+                ProductORM product = new ProductORM();
+                product.setName("ProductORM " + i);
+                product.setDetails("Product details for product " + i);
+                product.setPrice(100.00 + i);
+                product.setCategory(category);
+                product.setManufacturer(manufacturer);
+                product.setSaleORM(sale);
+                product.setClient(client);
+                em.persist(product);
+
+
+                if (i % 500 == 0) {
+                    em.getTransaction().commit();
+                    em.clear();
+                    em.getTransaction().begin();
+                }
+            }
+
+            em.getTransaction().commit();
+            System.out.println(count + " products added successfully.");
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
+
+
+    public static void deleteAllProducts() {
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+
+            int deletedCount = em.createQuery("DELETE FROM ProductORM").executeUpdate();
+
+            em.getTransaction().commit();
+            System.out.println("Deleted " + deletedCount + " products from the database.");
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
+
+
+    public static void updateProductCategoryTo(int categoryId) {
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+
+
+            CategoryORM newCategory = em.find(CategoryORM.class, categoryId);
+
+            if (newCategory == null) {
+                throw new IllegalArgumentException("Category with ID " + categoryId + " does not exist.");
+            }
+
+
+            int updatedCount = em.createQuery("UPDATE ProductORM p SET p.category = :newCategory")
+                    .setParameter("newCategory", newCategory)
+                    .executeUpdate();
+
+            em.getTransaction().commit();
+            System.out.println("Updated category for " + updatedCount + " products.");
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
+
+    public static void addCategory() {
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+
+            CategoryORM category = new CategoryORM();
+            category.setName("New Category");
+            category.setDescription("Description for the new category");
+            em.persist(category);
+
+            em.getTransaction().commit();
+            System.out.println("Category added successfully.");
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
+
+    public static void addCategories(int count) {
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+
+            for (int i = 1; i <= count; i++) {
+                CategoryORM category = new CategoryORM();
+                category.setName("Category " + i);
+                category.setDescription("Description for Category " + i);
+                em.persist(category);
+            }
+
+            em.getTransaction().commit();
+            System.out.println(count + " categories added successfully.");
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
+
+    public static void deleteCategoriesExcludingIds(List<Integer> excludedIds) {
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+
+            int deletedCount = em.createQuery("DELETE FROM CategoryORM c WHERE c.id NOT IN :excludedIds")
+                    .setParameter("excludedIds", excludedIds)
+                    .executeUpdate();
+
+            em.getTransaction().commit();
+            System.out.println("Deleted " + deletedCount + " categories, excluding IDs: " + excludedIds);
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
+
+
+    public static void updateCategoryNames(EntityManager em) {
+        int updatedCount = em.createQuery("UPDATE CategoryORM c SET c.name = :newName WHERE c.id NOT IN (1, 2)")
+                .setParameter("newName", "Fajna nazwa kategorii")
+                .executeUpdate();
+
+        System.out.println("Updated names for " + updatedCount + " categories.");
+    }
+
 }
