@@ -14,8 +14,8 @@ public class noSQLProduct {
         private String details;
         private double price;
 
-        private noSQLCategory category;         // Obiekt kategorii
-        private noSQLManufacturer manufacturer; // Obiekt producenta
+        private noSQLCategory category;
+        private noSQLManufacturer manufacturer;
         private noSQLSale sale;
 
         public noSQLProduct(ObjectId id, String name, String details, double price) {

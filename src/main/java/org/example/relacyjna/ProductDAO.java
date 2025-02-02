@@ -76,14 +76,11 @@ public class ProductDAO {
         try (Connection connection = DatabaseConnection.getConnection();
              Statement statement = connection.createStatement()) {
 
-            // Wyłącz klucze obce
             statement.execute(disableForeignKeyCheck);
 
-            // Usuń produkty
             int rowsDeleted = statement.executeUpdate(deleteProducts);
             System.out.println("DEBUG: Usunięto produkty. Liczba usuniętych wierszy: " + rowsDeleted);
 
-            // Włącz klucze obce
             statement.execute(enableForeignKeyCheck);
 
         } catch (SQLException e) {

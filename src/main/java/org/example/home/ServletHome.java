@@ -12,6 +12,6 @@ public class ServletHome extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.getWriter().println("<h1>Witaj w Servletcie WebAppBazki!</h1>");
+        response.getWriter().println("<h1>Witaj w WebAppBazki!</h1>");
     }
 }
